@@ -5,6 +5,9 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
     public GameObject BrickRef;
+    public GameObject Exit;
+    bool Gate = false;
+    public GameObject Bomb;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +20,21 @@ public class Brick : MonoBehaviour
                 {
                     if (!(i == 0 && j == 0))
                     {
+                        if (!Gate && Random.Range(0, 10) > 5)
+                        {
+                            Gate = true;
+                            Instantiate(Exit, new Vector3(i * 2, j * 2, 0), Quaternion.identity);
+                        }
                         Instantiate(BrickRef, new Vector3(i * 2, j * 2, 0), Quaternion.identity);
                     }
                 }
 
             }
+        }
+        if(!Gate)
+        {
+            Gate = true;
+            Instantiate(Exit, new Vector3((i*2-2), i * 2, 0), Quaternion.identity);
         }
     }
 
@@ -31,4 +44,5 @@ public class Brick : MonoBehaviour
 
         
     }
+
 }
